@@ -1,17 +1,46 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useCategoryStore } from "@/stores/categories";
+import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
+import MainView from "@/components/MainView.vue";
+import { useRoute } from "vue-router";
+import router from "@/router";
+
+const { fetchCategories } = useCategoryStore();
+const { categories } = storeToRefs(useCategoryStore());
+onMounted(() => fetchCategories());
+
+const route = useRoute();
+
+const store = useCategoryStore();
+const { category } = storeToRefs(store);
+const { setCategory } = store;
+
+const handleClick = (category: string) => {
+  setCategory(category);
+};
+
+const isActive = (category: string) => route.query.category === category;
+</script>
 
 <template>
   <header class="header">
-    <div class="header__logo">
+    <router-link :to="`/`" :class="['header__logo']">
       <img src="@/assets/icons/logo.svg" alt="logo" width="32" height="32" />
       <div class="header__text">SC.</div>
-    </div>
+    </router-link>
     <nav class="nav header__nav">
       <ul>
-        <li>New arrivals</li>
-        <li>Men</li>
-        <li>Women</li>
-        <li>Kids</li>
+        <router-link
+          v-for="category in categories"
+          :to="`/products?category=${category}`"
+          :key="category"
+          :class="['header__item', { active: isActive(category) }]"
+          @click="handleClick(category)"
+          >{{
+            category.charAt(0).toUpperCase() + category.slice(1)
+          }}</router-link
+        >
       </ul>
     </nav>
 
@@ -44,7 +73,7 @@
   </header>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
   height: 80px;
   display: flex;
@@ -56,6 +85,7 @@
   display: flex;
   margin-left: 65px;
   align-self: center;
+  text-decoration: none;
 }
 
 .header__text {
@@ -79,7 +109,8 @@
   margin: 0 -15px;
 }
 
-.nav li {
+.header__item {
+  text-decoration: none;
   margin: 0 15px;
   list-style-type: none;
   font-family: "Google Sans";
@@ -88,6 +119,14 @@
   font-size: 14px;
   line-height: 24px;
   color: #000000;
+  cursor: pointer;
+  &.active {
+    border-bottom: 1px solid #000;
+  }
+}
+
+.underline {
+  border-bottom: 2px solid #000000;
 }
 
 .header__icons {

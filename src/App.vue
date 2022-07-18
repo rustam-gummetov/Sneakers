@@ -1,19 +1,24 @@
-<script setup>
+<script lang="ts" setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Header from "./components/Header.vue";
+import HeaderView from "./components/HeaderView.vue";
+import FilterView from "./components/FilterView.vue";
+import MainView from "./components/MainView.vue";
+
+// export default {
+//   components: {
+//     HeaderView,
+//   },
+// };
 </script>
 
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + Vite" /> -->
 
-  <Header />
+  <HeaderView />
 
-  <div class="filter">
-    <div class="filter__price"></div>
-    <div class="filter__size"></div>
-  </div>
+  <RouterView />
 </template>
 
 <style>
@@ -29,11 +34,5 @@ import Header from "./components/Header.vue";
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-.filter {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
 }
 </style>
