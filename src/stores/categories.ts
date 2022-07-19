@@ -21,7 +21,6 @@ export const useCategoryStore = defineStore({
     },
     setCategory(category: string) {
       this.category = category;
-      console.log(category);
-    }
+    },
   },
 });
