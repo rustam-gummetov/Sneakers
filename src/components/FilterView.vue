@@ -7,25 +7,6 @@ const store = useFilterStore();
 const { priceFrom, priceTo, ratingFrom, ratingTo } = storeToRefs(store);
 const { setPriceRange, setRatingRange } = store;
 
-// export default {
-//   components: {
-//     Slider,
-//   },
-//   data() {
-//     return {
-//       price: [0, 1000],
-//       rating: [0.0, 5.0],
-//     };
-//   },
-
-//   methods: {
-//     handlePriceSlider(value: number[]) {
-//       setPriceRange(value[0], value[1]);
-//       console.log(value[1]);
-//     },
-//   },
-// };
-
 const price = [priceFrom.value, priceTo.value];
 const rating = [ratingFrom.value, ratingTo.value];
 
