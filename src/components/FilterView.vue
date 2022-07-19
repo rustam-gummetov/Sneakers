@@ -1,15 +1,44 @@
-<script lang="ts">
+<script setup lang="ts">
 import Slider from "@vueform/slider";
-export default {
-  components: {
-    Slider,
-  },
-  data() {
-    return {
-      price: [0, 100],
-      rating: [0.0, 5.0],
-    };
-  },
+import { useFilterStore } from "@/stores/filter";
+import { storeToRefs } from "pinia";
+
+const store = useFilterStore();
+const { priceFrom, priceTo, ratingFrom, ratingTo } = storeToRefs(store);
+const { setPriceRange, setRatingRange } = store;
+
+// export default {
+//   components: {
+//     Slider,
+//   },
+//   data() {
+//     return {
+//       price: [0, 1000],
+//       rating: [0.0, 5.0],
+//     };
+//   },
+
+//   methods: {
+//     handlePriceSlider(value: number[]) {
+//       setPriceRange(value[0], value[1]);
+//       console.log(value[1]);
+//     },
+//   },
+// };
+
+const price = [priceFrom.value, priceTo.value];
+const rating = [ratingFrom.value, ratingTo.value];
+
+const handlePriceSlider = (value: number[]) => {
+  setPriceRange(value[0], value[1]);
+  console.log(value[0]);
+  console.log(value[1]);
+};
+
+const handleRatingSlider = (value: number[]) => {
+  setRatingRange(value[0], value[1]);
+  console.log(value[0]);
+  console.log(value[1]);
 };
 </script>
 
@@ -17,10 +46,18 @@ export default {
   <div class="filter">
     <div class="filter__price">
       <div class="filter__title">Price pange</div>
-      <Slider v-model="price" :lazy="false" :tooltips="false" class="slider" />
+      <Slider
+        v-model="price"
+        :lazy="false"
+        :tooltips="false"
+        :min="0"
+        :max="1000"
+        class="slider"
+        @update="handlePriceSlider(price)"
+      />
       <div class="filter__ranges">
-        <div class="filter__from">{{ price[0] }},000RWF</div>
-        <div class="filter__to">{{ price[1] }},000RWF</div>
+        <div class="filter__from">{{ priceFrom }}RWF</div>
+        <div class="filter__to">{{ priceTo }}RWF</div>
       </div>
     </div>
     <div class="filter__rating">
@@ -33,10 +70,11 @@ export default {
         :min="0.0"
         :max="5.0"
         class="slider"
+        @update="handleRatingSlider(rating)"
       />
       <div class="filter__ranges">
-        <div class="filter__from">{{ rating[0] }}</div>
-        <div class="filter__to">{{ rating[1] }}</div>
+        <div class="filter__from">{{ ratingFrom }}</div>
+        <div class="filter__to">{{ ratingTo }}</div>
       </div>
     </div>
   </div>
