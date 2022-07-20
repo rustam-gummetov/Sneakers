@@ -7,10 +7,7 @@ defineProps({
 });
 
 const store = useFilterStore();
-const { priceFrom } = storeToRefs(store);
-const { priceTo } = storeToRefs(store);
-const { ratingFrom } = storeToRefs(store);
-const { ratingTo } = storeToRefs(store);
+const { priceFrom, priceTo, ratingFrom, ratingTo } = storeToRefs(store);
 </script>
 
 <template>
@@ -24,6 +21,9 @@ const { ratingTo } = storeToRefs(store);
     "
   >
     <img :src="product?.image" alt="picture" width="310" height="310" />
+    <!-- <router-link :to="`/${product?.title}/details`">
+      <img :src="product?.image" alt="picture" width="310" height="310" />
+    </router-link> -->
     <div class="product__name">{{ product?.title }}</div>
     <div class="product__cost">{{ product?.price }}RWF</div>
   </div>

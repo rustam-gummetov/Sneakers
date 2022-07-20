@@ -1,23 +1,38 @@
 <script setup lang="ts">
 import ProductView from "./ProductView.vue";
+import Details from "@/components/Details.vue";
 import { useProductStore } from "@/stores/products";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useCategoryStore } from "@/stores/categories";
-import { watch } from "vue";
+import { ref, watch } from "vue";
 
 const route = useRoute();
-
 const store = useCategoryStore();
 const { category } = storeToRefs(store);
-
 const productStore = useProductStore();
 const { fetchProductsInSpecificCategory } = productStore;
 const { productsInSpecificCategory } = storeToRefs(productStore);
+const chosen = ref({});
 
 watch([route], () => {
   fetchProductsInSpecificCategory(category.value);
   console.log(productsInSpecificCategory);
+});
+
+const body = document.querySelector("body");
+
+function handleProduct(product: object) {
+  chosen.value = product;
+  body?.scrollIntoView();
+  document.body.style.overflow = "hidden";
+}
+
+body?.addEventListener("click", (e) => {
+  if (e.target?.classList[0] === "details") {
+    chosen.value = {};
+    document.body.style.overflow = "scroll";
+  }
 });
 </script>
 
@@ -31,8 +46,12 @@ watch([route], () => {
         v-for="product in productsInSpecificCategory"
         :product="product"
         :key="product.id"
+        @click="handleProduct(product)"
       />
     </div>
+    <teleport v-if="Object.keys(chosen).length" to="body">
+      <Details :chosen="chosen" :key="chosen.id" />
+    </teleport>
   </main>
 </template>
 
