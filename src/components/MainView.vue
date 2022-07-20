@@ -8,14 +8,11 @@ import { useCategoryStore } from "@/stores/categories";
 import { ref, watch } from "vue";
 
 const route = useRoute();
-
 const store = useCategoryStore();
 const { category } = storeToRefs(store);
-
 const productStore = useProductStore();
 const { fetchProductsInSpecificCategory } = productStore;
 const { productsInSpecificCategory } = storeToRefs(productStore);
-
 const chosen = ref({});
 
 watch([route], () => {

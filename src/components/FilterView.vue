@@ -105,7 +105,6 @@ const handleRatingSlider = (value: number[]) => {
 .slider {
   width: 240px;
   align-self: center;
-  z-index: -1;
 }
 
 .filter__rating {

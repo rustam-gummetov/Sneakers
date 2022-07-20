@@ -25,7 +25,7 @@ const handleEditPlus = () => {
         <div class="details__head">
           <div class="details__title">{{ chosen?.title }}</div>
           <div class="details__like">
-            <img src="@/assets/icons/heart.svg" alt="" />
+            <img src="@/assets/icons/heart.svg" alt="like" />
           </div>
         </div>
         <div class="details__price">{{ chosen?.price }}RWF</div>
@@ -64,13 +64,13 @@ const handleEditPlus = () => {
 
 <style>
 .details {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
 }
 
 .details__content {
@@ -82,7 +82,6 @@ const handleEditPlus = () => {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #ffffff;
-  z-index: 10;
 }
 
 .details__view {
@@ -147,10 +146,6 @@ const handleEditPlus = () => {
   font-size: 16px;
   line-height: 24px;
   color: rgba(0, 0, 0, 0.65);
-}
-
-.details__addToCard {
-  justify-self: flex-end;
 }
 
 .details__edit {
