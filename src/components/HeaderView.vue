@@ -54,20 +54,10 @@ const isActive = (category: string) => route.query.category === category;
         />
       </div>
       <div class="header__icon">
-        <img
-          src="@/assets/icons/heart.svg"
-          alt="basket"
-          width="20"
-          height="20"
-        />
+        <img src="@/assets/icons/heart.svg" alt="like" width="20" height="20" />
       </div>
       <div class="header__icon">
-        <img
-          src="@/assets/icons/user.svg"
-          alt="basket"
-          width="20"
-          height="20"
-        />
+        <img src="@/assets/icons/user.svg" alt="user" width="20" height="20" />
       </div>
     </div>
   </header>

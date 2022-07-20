@@ -35,4 +35,10 @@ import MainView from "./components/MainView.vue";
   text-align: center;
   color: #2c3e50;
 }
+
+body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
 </style>
