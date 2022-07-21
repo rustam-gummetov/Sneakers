@@ -17,7 +17,6 @@ const chosen = ref({});
 
 watch([route], () => {
   fetchProductsInSpecificCategory(category.value);
-  console.log(productsInSpecificCategory);
 });
 
 const body = document.querySelector("body");

@@ -31,20 +31,19 @@
         </div>
       </div>
     </div>
-    <div class="footer__contacts">
-      <div class="footer__text">Support line: +250 788 467 808</div>
-      <div class="footer__text">Copyright 2021 © Sneaker City ltd</div>
-    </div>
+    <div class="footer__support">Support line: +250 788 467 808</div>
+    <div class="footer__copyright">Copyright 2021 © Sneaker City ltd</div>
   </footer>
 </template>
 
-<style>
+<style scoped>
 .footer {
   height: 100px;
 }
 
 .footer__networks {
   text-align: left;
+  margin-right: -250px;
 }
 
 .footer__container {
@@ -54,7 +53,20 @@
   padding-bottom: 10px;
 }
 
-.footer__text {
+.footer__support {
+  display: inline-block;
+  float: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.footer__copyright {
+  display: inline-block;
+  float: right;
   padding-top: 5px;
   padding-bottom: 5px;
   font-weight: 400;

@@ -17,7 +17,6 @@ import MainView from "./components/MainView.vue";
   <HelloWorld msg="Hello Vue 3 + Vite" /> -->
 
   <HeaderView />
-
   <RouterView />
 </template>
 

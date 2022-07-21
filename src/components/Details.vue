@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useCartStore } from "@/stores/cart";
+import { storeToRefs } from "pinia";
 
 defineProps({
   chosen: Object,
 });
+
+const store = useCartStore();
+const { products } = storeToRefs(store);
+const { addProductToCart } = useCartStore();
 
 const counter = ref(1);
 
@@ -15,6 +21,11 @@ const handleEditMinus = () => {
 
 const handleEditPlus = () => {
   counter.value++;
+};
+
+const addToCart = (chosen: object) => {
+  addProductToCart(chosen, counter.value);
+  document.body.style.overflow = "scroll";
 };
 </script>
 
@@ -35,7 +46,7 @@ const handleEditPlus = () => {
             :alt="chosen?.title"
             width="350"
             height="350"
-            object-fit="cover"
+            style="object-fit: scale-down"
           />
         </div>
       </div>
@@ -55,14 +66,16 @@ const handleEditPlus = () => {
           <button class="details__edit" @click="handleEditMinus()">-</button>
           <div class="details__count">{{ counter }}</div>
           <button class="details__edit" @click="handleEditPlus()">+</button>
-          <button class="details__btn">Add to cart</button>
+          <router-link :to="`/cart`" @click="addToCart(chosen)">
+            <button class="details__btn">Add to cart</button>
+          </router-link>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style>
+<style scoped>
 .details {
   position: fixed;
   top: 0;
@@ -149,7 +162,7 @@ const handleEditPlus = () => {
 }
 
 .details__edit {
-  width: 30px;
+  width: 50px;
   height: 50px;
   font-size: 25px;
   border: 0;
