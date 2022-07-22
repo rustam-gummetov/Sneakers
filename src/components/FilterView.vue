@@ -12,21 +12,17 @@ const rating = [ratingFrom.value, ratingTo.value];
 
 const handlePriceSlider = (value: number[]) => {
   setPriceRange(value[0], value[1]);
-  console.log(value[0]);
-  console.log(value[1]);
 };
 
 const handleRatingSlider = (value: number[]) => {
   setRatingRange(value[0], value[1]);
-  console.log(value[0]);
-  console.log(value[1]);
 };
 </script>
 
 <template>
   <div class="filter">
     <div class="filter__price">
-      <div class="filter__title">Price pange</div>
+      <span class="filter__title">Price pange</span>
       <Slider
         v-model="price"
         :lazy="false"
@@ -37,12 +33,12 @@ const handleRatingSlider = (value: number[]) => {
         @update="handlePriceSlider(price)"
       />
       <div class="filter__ranges">
-        <div class="filter__from">{{ priceFrom }}RWF</div>
-        <div class="filter__to">{{ priceTo }}RWF</div>
+        <span class="filter__from">{{ priceFrom }}RWF</span>
+        <span class="filter__to">{{ priceTo }}RWF</span>
       </div>
     </div>
     <div class="filter__rating">
-      <div class="filter__title">Rating</div>
+      <span class="filter__title">Rating</span>
       <Slider
         v-model="rating"
         :lazy="false"
@@ -54,8 +50,8 @@ const handleRatingSlider = (value: number[]) => {
         @update="handleRatingSlider(rating)"
       />
       <div class="filter__ranges">
-        <div class="filter__from">{{ ratingFrom }}</div>
-        <div class="filter__to">{{ ratingTo }}</div>
+        <span class="filter__from">{{ ratingFrom }}</span>
+        <span class="filter__to">{{ ratingTo }}</span>
       </div>
     </div>
   </div>

@@ -20,20 +20,23 @@ const { priceFrom, priceTo, ratingFrom, ratingTo } = storeToRefs(store);
       product?.rating.rate <= ratingTo
     "
   >
-    <img :src="product?.image" alt="picture" width="310" height="310" />
-    <!-- <router-link :to="`/${product?.title}/details`">
-      <img :src="product?.image" alt="picture" width="310" height="310" />
-    </router-link> -->
+    <img
+      :src="product?.image"
+      alt="picture"
+      width="310"
+      height="310"
+      style="object-fit: scale-down"
+    />
     <div class="product__name">{{ product?.title }}</div>
     <div class="product__cost">{{ product?.price }}RWF</div>
   </div>
 </template>
 
-<style>
+<style scoped>
 .product {
-  padding: 20px;
+  padding-right: 40px;
+  padding-bottom: 40px;
   width: 33.33%;
-  height: 350px;
   margin-top: 40px;
   margin-bottom: 30px;
 }

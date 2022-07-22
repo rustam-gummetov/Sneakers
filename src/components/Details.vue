@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { useCartStore } from "@/stores/cart";
+import { storeToRefs } from "pinia";
+import type { Product } from "@/types/product";
+import { getProductById } from "@/api/requests";
 
-defineProps({
-  chosen: Object,
+const props = defineProps<{
+  id: number;
+}>();
+
+const product = ref<Product>({} as Product);
+onMounted(async () => {
+  product.value = await getProductById(props.id);
 });
+
+const store = useCartStore();
+const { addProductToCart } = useCartStore();
 
 const counter = ref(1);
 
@@ -16,53 +28,60 @@ const handleEditMinus = () => {
 const handleEditPlus = () => {
   counter.value++;
 };
+
+const addToCart = (product: Product) => {
+  addProductToCart(product, counter.value);
+  document.body.style.overflow = "scroll";
+};
 </script>
 
 <template>
-  <div class="details">
-    <div class="details__content" onclick="event.stopPropagation()">
+  <div class="details" id="details">
+    <div class="details__content">
       <div class="details__view">
         <div class="details__head">
-          <div class="details__title">{{ chosen?.title }}</div>
+          <span class="details__title">{{ product?.title }}</span>
           <div class="details__like">
             <img src="@/assets/icons/heart.svg" alt="like" />
           </div>
         </div>
-        <div class="details__price">{{ chosen?.price }}RWF</div>
+        <span class="details__price">{{ product?.price }}RWF</span>
         <div class="details__picture">
           <img
-            :src="chosen?.image"
-            :alt="chosen?.title"
+            :src="product?.image"
+            :alt="product?.title"
             width="350"
             height="350"
-            object-fit="cover"
+            style="object-fit: scale-down"
           />
         </div>
       </div>
       <div class="details__add">
         <div class="details__topBlock">
           <div class="details__head">
-            <div class="details__description">Description</div>
+            <span class="details__description">Description</span>
             <div class="details__arrowUP">
               <img src="@/assets/icons/arrowUp.svg" alt="aroowUP" />
             </div>
           </div>
           <div class="details__text">
-            {{ chosen?.description }}
+            {{ product?.description }}
           </div>
         </div>
         <div class="details__addToCard">
           <button class="details__edit" @click="handleEditMinus()">-</button>
-          <div class="details__count">{{ counter }}</div>
+          <span class="details__count">{{ counter }}</span>
           <button class="details__edit" @click="handleEditPlus()">+</button>
-          <button class="details__btn">Add to cart</button>
+          <button class="details__btn" @click="product && addToCart(product)">
+            Add to cart
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style>
+<style scoped>
 .details {
   position: fixed;
   top: 0;
@@ -149,7 +168,7 @@ const handleEditPlus = () => {
 }
 
 .details__edit {
-  width: 30px;
+  width: 50px;
   height: 50px;
   font-size: 25px;
   border: 0;
@@ -164,7 +183,7 @@ const handleEditPlus = () => {
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 15%;
+  border-radius: 8px;
 }
 
 .details__addToCard {

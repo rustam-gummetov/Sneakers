@@ -2,14 +2,6 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HeaderView from "./components/HeaderView.vue";
-import FilterView from "./components/FilterView.vue";
-import MainView from "./components/MainView.vue";
-
-// export default {
-//   components: {
-//     HeaderView,
-//   },
-// };
 </script>
 
 <template>
@@ -17,7 +9,6 @@ import MainView from "./components/MainView.vue";
   <HelloWorld msg="Hello Vue 3 + Vite" /> -->
 
   <HeaderView />
-
   <RouterView />
 </template>
 

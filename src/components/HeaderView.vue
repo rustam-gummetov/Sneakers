@@ -27,7 +27,7 @@ const isActive = (category: string) => route.query.category === category;
   <header class="header">
     <router-link :to="`/`" :class="['header__logo']">
       <img src="@/assets/icons/logo.svg" alt="logo" width="32" height="32" />
-      <div class="header__text">SC.</div>
+      <span class="header__text">SC.</span>
     </router-link>
     <nav class="nav header__nav">
       <ul>
@@ -45,14 +45,14 @@ const isActive = (category: string) => route.query.category === category;
     </nav>
 
     <div class="header__icons">
-      <div class="header__icon">
+      <router-link :to="`/cart`" class="header__icon">
         <img
           src="@/assets/icons/basket.svg"
           alt="basket"
           width="20"
           height="20"
         />
-      </div>
+      </router-link>
       <div class="header__icon">
         <img src="@/assets/icons/heart.svg" alt="like" width="20" height="20" />
       </div>

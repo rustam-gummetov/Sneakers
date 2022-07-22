@@ -9,12 +9,12 @@ import Footer from "@/components/Footer.vue";
     <FilterView />
     <div class="page__content">
       <MainView />
-      <Footer />
     </div>
   </main>
+  <Footer />
 </template>
 
-<style>
+<style scoped>
 .page {
   display: flex;
 }
@@ -22,6 +22,6 @@ import Footer from "@/components/Footer.vue";
 .page__content {
   padding-right: 60px;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
 }
 </style>
