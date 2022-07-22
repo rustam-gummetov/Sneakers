@@ -14,7 +14,8 @@ const { category } = storeToRefs(store);
 const productStore = useProductStore();
 const { fetchProductsInSpecificCategory } = productStore;
 const { productsInSpecificCategory } = storeToRefs(productStore);
-const chosen = ref({});
+const chosen = ref<Product>({} as Product);
+const isOpen = ref(false);
 
 watch([route], () => {
   fetchProductsInSpecificCategory(category.value);
@@ -24,13 +25,18 @@ const body = document.querySelector("body");
 
 function handleProduct(product: Product) {
   chosen.value = product;
+  isOpen.value = true;
   body?.scrollIntoView();
   document.body.style.overflow = "hidden";
 }
 
 body?.addEventListener("click", (e) => {
-  if (e.target?.classList[0] === "details") {
-    chosen.value = {};
+  const target = e.target as HTMLElement;
+  if (
+    target?.classList[0] === "details" ||
+    target?.classList[0] === "details__btn"
+  ) {
+    isOpen.value = false;
     document.body.style.overflow = "scroll";
   }
 });
@@ -49,8 +55,8 @@ body?.addEventListener("click", (e) => {
         @click="handleProduct(product)"
       />
     </div>
-    <teleport v-if="Object.keys(chosen).length" to="body">
-      <Details :chosen="chosen" :key="chosen.id" />
+    <teleport v-if="isOpen" to="body">
+      <Details :id="chosen.id" :key="chosen.id" />
     </teleport>
   </div>
 </template>
@@ -58,7 +64,6 @@ body?.addEventListener("click", (e) => {
 <style scoped>
 .main {
   padding-bottom: 100px;
-  /* border-bottom: 1px solid rgba(0, 0, 0, 0.15); */
 }
 .main__title {
   font-weight: 700;

@@ -7,7 +7,7 @@ const store = useCartStore();
 const { products } = storeToRefs(store);
 const { clearStore } = useCartStore();
 
-const caclulateTotalPrice = () => {
+const calculateTotalPrice = () => {
   const sum = products.value.reduce(
     (sum, el) => el.product.price * el.count + sum,
     0
@@ -24,7 +24,7 @@ const caclulateTotalPrice = () => {
         <ProductCart
           v-for="product in products"
           :product="product"
-          :key="product.id"
+          :key="product.product.id"
         />
       </div>
     </div>
@@ -33,15 +33,15 @@ const caclulateTotalPrice = () => {
       <div class="order__price">
         <div class="main__price">
           <span class="total__title">Sub total</span>
-          <span class="total__price">{{ caclulateTotalPrice() }}RWF</span>
+          <span class="total__price">{{ calculateTotalPrice() }}RWF</span>
         </div>
         <div class="main__devilery">
           <span class="delivery__title">Delivery fee</span>
           <span class="delivery__sum">0RWF</span>
         </div>
       </div>
-      <span class="main__total">{{ caclulateTotalPrice() }}RWF</span>
-      <router-link :to="`/`">
+      <span class="main__total">{{ calculateTotalPrice() }}RWF</span>
+      <router-link :to="`/`" class="main__link">
         <button class="main__btn" @click="clearStore()">
           Proceed to checkout
         </button>
@@ -152,10 +152,13 @@ const caclulateTotalPrice = () => {
   color: #000000;
 }
 
+.main__link {
+  text-align: left;
+}
+
 .main__btn {
   width: 220px;
-  height: 45px;
-  padding: 10px auto;
+  padding: 10px 0;
   margin-top: 65px;
   margin-left: 5px;
   font-weight: 700;

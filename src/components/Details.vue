@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useCartStore } from "@/stores/cart";
 import { storeToRefs } from "pinia";
 import type { Product } from "@/types/product";
-import type { ProductOrder } from "@/types/productOrder";
+import { getProductById } from "@/api/requests";
 
-defineProps({
-  chosen: Object,
+const props = defineProps<{
+  id: number;
+}>();
+
+const product = ref<Product>({} as Product);
+onMounted(async () => {
+  product.value = await getProductById(props.id);
 });
 
 const store = useCartStore();
-const { products } = storeToRefs(store);
 const { addProductToCart } = useCartStore();
 
 const counter = ref(1);
@@ -25,27 +29,27 @@ const handleEditPlus = () => {
   counter.value++;
 };
 
-const addToCart = (chosen: Product) => {
-  addProductToCart(chosen, counter.value);
+const addToCart = (product: Product) => {
+  addProductToCart(product, counter.value);
   document.body.style.overflow = "scroll";
 };
 </script>
 
 <template>
-  <div class="details">
-    <div class="details__content" onclick="event.stopPropagation()">
+  <div class="details" id="details">
+    <div class="details__content">
       <div class="details__view">
         <div class="details__head">
-          <span class="details__title">{{ chosen?.title }}</span>
+          <span class="details__title">{{ product?.title }}</span>
           <div class="details__like">
             <img src="@/assets/icons/heart.svg" alt="like" />
           </div>
         </div>
-        <span class="details__price">{{ chosen?.price }}RWF</span>
+        <span class="details__price">{{ product?.price }}RWF</span>
         <div class="details__picture">
           <img
-            :src="chosen?.image"
-            :alt="chosen?.title"
+            :src="product?.image"
+            :alt="product?.title"
             width="350"
             height="350"
             style="object-fit: scale-down"
@@ -61,16 +65,16 @@ const addToCart = (chosen: Product) => {
             </div>
           </div>
           <div class="details__text">
-            {{ chosen?.description }}
+            {{ product?.description }}
           </div>
         </div>
         <div class="details__addToCard">
           <button class="details__edit" @click="handleEditMinus()">-</button>
           <span class="details__count">{{ counter }}</span>
           <button class="details__edit" @click="handleEditPlus()">+</button>
-          <router-link :to="`/cart`" @click="addToCart(chosen as Product)">
-            <button class="details__btn">Add to cart</button>
-          </router-link>
+          <button class="details__btn" @click="product && addToCart(product)">
+            Add to cart
+          </button>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ export const useProductStore = defineStore({
   state: () => ({
     products: [] as Product[],
     product: null,
-    productsInSpecificCategory: [],
+    productsInSpecificCategory: [] as Product[],
   }),
 
   getters: {},

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart";
 import type { Product } from "@/types/product";
+import type { ProductOrder } from "@/types/productOrder";
 
 const { changeCount } = useCartStore();
 
-defineProps({
-  product: Object,
-});
+defineProps<{
+  product: ProductOrder;
+}>();
 
 const handleEditMinus = (product: Product, count: number) => {
   if (count > 1) {

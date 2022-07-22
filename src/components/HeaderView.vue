@@ -45,14 +45,14 @@ const isActive = (category: string) => route.query.category === category;
     </nav>
 
     <div class="header__icons">
-      <div class="header__icon">
+      <router-link :to="`/cart`" class="header__icon">
         <img
           src="@/assets/icons/basket.svg"
           alt="basket"
           width="20"
           height="20"
         />
-      </div>
+      </router-link>
       <div class="header__icon">
         <img src="@/assets/icons/heart.svg" alt="like" width="20" height="20" />
       </div>
