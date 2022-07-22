@@ -6,6 +6,7 @@ import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useCategoryStore } from "@/stores/categories";
 import { ref, watch } from "vue";
+import type { Product } from "@/types/product";
 
 const route = useRoute();
 const store = useCategoryStore();
@@ -21,7 +22,7 @@ watch([route], () => {
 
 const body = document.querySelector("body");
 
-function handleProduct(product: object) {
+function handleProduct(product: Product) {
   chosen.value = product;
   body?.scrollIntoView();
   document.body.style.overflow = "hidden";
@@ -36,7 +37,7 @@ body?.addEventListener("click", (e) => {
 </script>
 
 <template>
-  <main class="main">
+  <div class="main">
     <h1 class="main__title">
       {{ category.charAt(0).toUpperCase() + category.slice(1) }}
     </h1>
@@ -51,13 +52,13 @@ body?.addEventListener("click", (e) => {
     <teleport v-if="Object.keys(chosen).length" to="body">
       <Details :chosen="chosen" :key="chosen.id" />
     </teleport>
-  </main>
+  </div>
 </template>
 
 <style scoped>
 .main {
   padding-bottom: 100px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.15); */
 }
 .main__title {
   font-weight: 700;

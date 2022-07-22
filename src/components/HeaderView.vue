@@ -27,7 +27,7 @@ const isActive = (category: string) => route.query.category === category;
   <header class="header">
     <router-link :to="`/`" :class="['header__logo']">
       <img src="@/assets/icons/logo.svg" alt="logo" width="32" height="32" />
-      <div class="header__text">SC.</div>
+      <span class="header__text">SC.</span>
     </router-link>
     <nav class="nav header__nav">
       <ul>

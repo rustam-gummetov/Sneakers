@@ -37,10 +37,8 @@ const { priceFrom, priceTo, ratingFrom, ratingTo } = storeToRefs(store);
   padding-right: 40px;
   padding-bottom: 40px;
   width: 33.33%;
-  height: 350px;
   margin-top: 40px;
   margin-bottom: 30px;
-  object-fit: scale-down;
 }
 
 .product__name {

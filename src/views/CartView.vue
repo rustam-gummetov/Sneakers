@@ -5,9 +5,7 @@ import Footer from "../components/Footer.vue";
 
 <template>
   <Cart />
-  <!-- <div class="footer"> -->
   <Footer />
-  <!-- </div> -->
 </template>
 
 <style scoped>
@@ -20,13 +18,5 @@ import Footer from "../components/Footer.vue";
   padding-top: 70px;
   padding-bottom: 70px;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-/* .footer__contacts {
-  width: 50%;
-} */
-
-.footer__text {
-  margin-left: 200px;
 }
 </style>

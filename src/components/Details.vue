@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import { useCartStore } from "@/stores/cart";
 import { storeToRefs } from "pinia";
+import type { Product } from "@/types/product";
+import type { ProductOrder } from "@/types/productOrder";
 
 defineProps({
   chosen: Object,
@@ -23,7 +25,7 @@ const handleEditPlus = () => {
   counter.value++;
 };
 
-const addToCart = (chosen: object) => {
+const addToCart = (chosen: Product) => {
   addProductToCart(chosen, counter.value);
   document.body.style.overflow = "scroll";
 };
@@ -34,12 +36,12 @@ const addToCart = (chosen: object) => {
     <div class="details__content" onclick="event.stopPropagation()">
       <div class="details__view">
         <div class="details__head">
-          <div class="details__title">{{ chosen?.title }}</div>
+          <span class="details__title">{{ chosen?.title }}</span>
           <div class="details__like">
             <img src="@/assets/icons/heart.svg" alt="like" />
           </div>
         </div>
-        <div class="details__price">{{ chosen?.price }}RWF</div>
+        <span class="details__price">{{ chosen?.price }}RWF</span>
         <div class="details__picture">
           <img
             :src="chosen?.image"
@@ -53,7 +55,7 @@ const addToCart = (chosen: object) => {
       <div class="details__add">
         <div class="details__topBlock">
           <div class="details__head">
-            <div class="details__description">Description</div>
+            <span class="details__description">Description</span>
             <div class="details__arrowUP">
               <img src="@/assets/icons/arrowUp.svg" alt="aroowUP" />
             </div>
@@ -64,9 +66,9 @@ const addToCart = (chosen: object) => {
         </div>
         <div class="details__addToCard">
           <button class="details__edit" @click="handleEditMinus()">-</button>
-          <div class="details__count">{{ counter }}</div>
+          <span class="details__count">{{ counter }}</span>
           <button class="details__edit" @click="handleEditPlus()">+</button>
-          <router-link :to="`/cart`" @click="addToCart(chosen)">
+          <router-link :to="`/cart`" @click="addToCart(chosen as Product)">
             <button class="details__btn">Add to cart</button>
           </router-link>
         </div>
@@ -177,7 +179,7 @@ const addToCart = (chosen: object) => {
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 15%;
+  border-radius: 8px;
 }
 
 .details__addToCard {

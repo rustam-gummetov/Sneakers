@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart";
+import type { Product } from "@/types/product";
 
 const { changeCount } = useCartStore();
 
@@ -7,13 +8,13 @@ defineProps({
   product: Object,
 });
 
-const handleEditMinus = (product: object, count: number) => {
+const handleEditMinus = (product: Product, count: number) => {
   if (count > 1) {
     changeCount(product, count - 1);
   }
 };
 
-const handleEditPlus = (product: object, count: number) => {
+const handleEditPlus = (product: Product, count: number) => {
   changeCount(product, count + 1);
 };
 </script>
@@ -49,9 +50,9 @@ const handleEditPlus = (product: object, count: number) => {
           +
         </button>
       </div>
-      <div class="product__sum">
+      <span class="product__sum">
         {{ product?.product.price * product?.count }}RWF
-      </div>
+      </span>
     </div>
   </div>
 </template>
@@ -77,7 +78,7 @@ const handleEditPlus = (product: object, count: number) => {
   height: 80px;
   align-self: center;
   background: #ffffff;
-  border-radius: 10%;
+  border-radius: 8px;
   margin-right: 30px;
 }
 
@@ -130,11 +131,10 @@ const handleEditPlus = (product: object, count: number) => {
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.65);
-  border-radius: 15%;
+  border-radius: 8px;
 }
 
 .product__sum {
-  justify-self: end;
   align-self: center;
   font-weight: 400;
   font-size: 18px;

@@ -4,7 +4,9 @@
   <footer class="footer">
     <div class="footer__networks">
       <div class="footer__container">
-        <div class="footer__text">Don’t missout on once-in-a-while-deals:</div>
+        <span class="footer__text"
+          >Don’t missout on once-in-a-while-deals:</span
+        >
         <div class="footer__icon">
           <img
             src="@/assets/icons/twitter.svg"
@@ -31,19 +33,26 @@
         </div>
       </div>
     </div>
-    <div class="footer__support">Support line: +250 788 467 808</div>
-    <div class="footer__copyright">Copyright 2021 © Sneaker City ltd</div>
+    <div class="footer__contacts">
+      <span>Support line: +250 788 467 808</span>
+      <span>Copyright 2021 © Sneaker City ltd</span>
+    </div>
   </footer>
 </template>
 
 <style scoped>
 .footer {
   height: 100px;
+  margin-left: 400px;
+  padding-top: 20px;
+  margin-bottom: 70px;
+  margin-right: 60px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .footer__networks {
   text-align: left;
-  margin-right: -250px;
+  width: 100%;
 }
 
 .footer__container {
@@ -51,28 +60,6 @@
   vertical-align: middle;
   padding-top: 10px;
   padding-bottom: 10px;
-}
-
-.footer__support {
-  display: inline-block;
-  float: left;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.65);
-}
-
-.footer__copyright {
-  display: inline-block;
-  float: right;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.65);
 }
 
 .footer__icon {
@@ -85,5 +72,13 @@
 .footer__contacts {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.65);
 }
 </style>

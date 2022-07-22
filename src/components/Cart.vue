@@ -5,13 +5,13 @@ import ProductCart from "./ProductCart.vue";
 
 const store = useCartStore();
 const { products } = storeToRefs(store);
+const { clearStore } = useCartStore();
 
 const caclulateTotalPrice = () => {
   const sum = products.value.reduce(
     (sum, el) => el.product.price * el.count + sum,
     0
   );
-  console.log(sum);
   return sum;
 };
 </script>
@@ -29,19 +29,23 @@ const caclulateTotalPrice = () => {
       </div>
     </div>
     <div class="main__order">
-      <div class="order__title">Order summary</div>
+      <span class="order__title">Order summary</span>
       <div class="order__price">
         <div class="main__price">
-          <div class="total__title">Sub total</div>
-          <div class="total__price">{{ caclulateTotalPrice() }}RWF</div>
+          <span class="total__title">Sub total</span>
+          <span class="total__price">{{ caclulateTotalPrice() }}RWF</span>
         </div>
         <div class="main__devilery">
-          <div class="delivery__title">Delivery fee</div>
-          <div class="delivery__sum">0RWF</div>
+          <span class="delivery__title">Delivery fee</span>
+          <span class="delivery__sum">0RWF</span>
         </div>
       </div>
-      <div class="main__total">{{ caclulateTotalPrice() }}RWF</div>
-      <button class="main__btn">Proceed to checkout</button>
+      <span class="main__total">{{ caclulateTotalPrice() }}RWF</span>
+      <router-link :to="`/`">
+        <button class="main__btn" @click="clearStore()">
+          Proceed to checkout
+        </button>
+      </router-link>
     </div>
   </main>
 </template>
@@ -151,7 +155,6 @@ const caclulateTotalPrice = () => {
 .main__btn {
   width: 220px;
   height: 45px;
-  align-self: flex-start;
   padding: 10px auto;
   margin-top: 65px;
   margin-left: 5px;
