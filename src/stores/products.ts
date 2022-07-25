@@ -5,7 +5,7 @@ import { defineStore } from "pinia";
 export const useProductStore = defineStore({
   id: "product",
   state: () => ({
-    load: false,
+    isLoad: false,
     products: [],
     product: null,
     productsInSpecificCategory: [] as Product[],
@@ -14,7 +14,7 @@ export const useProductStore = defineStore({
   actions: {
     async fetchProductsInSpecificCategory(category: string) {
       this.productsInSpecificCategory = [];
-      this.load = true;
+      this.isLoad = true;
       try {
         const { data } = await axios.get(
           `https://fakestoreapi.com/products/category/${category}`
@@ -23,12 +23,12 @@ export const useProductStore = defineStore({
       } catch (e) {
         console.warn(e);
       } finally {
-        this.load = false;
+        this.isLoad = false;
       }
     },
 
     async getProductById(id: number) {
-      this.load = true;
+      this.isLoad = true;
       try {
         const { data } = await axios.get(
           `https://fakestoreapi.com/products/${id}`
@@ -37,7 +37,7 @@ export const useProductStore = defineStore({
       } catch (e: any) {
         console.error(e.message);
       } finally {
-        this.load = false;
+        this.isLoad = false;
       }
     },
   },

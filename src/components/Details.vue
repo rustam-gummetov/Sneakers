@@ -4,14 +4,14 @@ import { useCartStore } from "@/stores/cart";
 import { storeToRefs } from "pinia";
 import type { Product } from "@/types/product";
 import { useProductStore } from "@/stores/products";
-import Loader from "./loader.vue";
+import Loader from "./Loader.vue";
 
 const props = defineProps<{
   id: number;
 }>();
 
 const productStore = useProductStore();
-const { load } = storeToRefs(productStore);
+const { isLoad } = storeToRefs(productStore);
 const { getProductById } = useProductStore();
 
 const product = ref<Product>({} as Product);
@@ -41,7 +41,7 @@ const addToCart = (product: Product) => {
 <template>
   <div class="details" id="details">
     <div class="details__content">
-      <div class="details__loading" v-if="!load">
+      <div class="details__loading" v-if="!isLoad">
         <div class="details__view">
           <div class="details__head">
             <span class="details__title">{{ product?.title }}</span>
@@ -79,7 +79,7 @@ const addToCart = (product: Product) => {
             <button class="details__btn" @click="product && addToCart(product)">
               Add to cart
             </button>
-            <teleport v-if="load" to="details__content">
+            <teleport v-if="isLoad" to="details__content">
               <Loader />
             </teleport>
           </div>

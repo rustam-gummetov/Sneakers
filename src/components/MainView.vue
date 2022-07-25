@@ -7,14 +7,14 @@ import { useRoute } from "vue-router";
 import { useCategoryStore } from "@/stores/categories";
 import { ref, watch } from "vue";
 import type { Product } from "@/types/product";
-import Loader from "./loader.vue";
+import Loader from "./Loader.vue";
 
 const route = useRoute();
 const store = useCategoryStore();
 const { category } = storeToRefs(store);
 const productStore = useProductStore();
 const { fetchProductsInSpecificCategory } = productStore;
-const { productsInSpecificCategory, load } = storeToRefs(productStore);
+const { productsInSpecificCategory, isLoad } = storeToRefs(productStore);
 const chosen = ref({} as Product);
 const isOpen = ref(false);
 
@@ -45,7 +45,7 @@ body?.addEventListener("click", (e) => {
 
 <template>
   <div class="main">
-    <teleport v-if="load" to="body">
+    <teleport v-if="isLoad" to="body">
       <Loader />
     </teleport>
     <h1 class="main__title">

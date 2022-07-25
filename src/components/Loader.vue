@@ -28,13 +28,11 @@
 
 .loader__img {
   text-align: center;
-  z-index: 1000;
 }
 
 .lds-ring {
   display: inline-block;
   position: relative;
-  z-index: 1000;
   width: 80px;
   height: 80px;
 }
