@@ -5,46 +5,39 @@ import { defineStore } from "pinia";
 export const useProductStore = defineStore({
   id: "product",
   state: () => ({
-    products: [] as Product[],
+    isLoad: false,
+    products: [],
     product: null,
     productsInSpecificCategory: [] as Product[],
   }),
 
-  getters: {},
-
   actions: {
-    async fetchProducts() {
-      this.products = [];
-      try {
-        const { data } = await axios.get("https://fakestoreapi.com/products");
-        this.products = data;
-      } catch {
-        this.products = [];
-      }
-    },
-
-    async fetchProduct(id: number) {
-      this.product = null;
-      try {
-        const { data } = await axios.get(
-          `https://fakestoreapi.com/products/${id}`
-        );
-        this.product = data;
-      } catch {
-        this.product = null;
-      }
-    },
-
     async fetchProductsInSpecificCategory(category: string) {
       this.productsInSpecificCategory = [];
+      this.isLoad = true;
       try {
         const { data } = await axios.get(
           `https://fakestoreapi.com/products/category/${category}`
         );
-
         this.productsInSpecificCategory = data;
-      } catch {
-        this.productsInSpecificCategory = [];
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        this.isLoad = false;
+      }
+    },
+
+    async getProductById(id: number) {
+      this.isLoad = true;
+      try {
+        const { data } = await axios.get(
+          `https://fakestoreapi.com/products/${id}`
+        );
+        return data;
+      } catch (e: any) {
+        console.error(e.message);
+      } finally {
+        this.isLoad = false;
       }
     },
   },

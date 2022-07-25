@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart";
 import type { Product } from "@/types/product";
-import type { ProductOrder } from "@/types/productOrder";
+import type { ProductOrder } from "@/types/product";
 
 const { changeCount } = useCartStore();
 
@@ -62,7 +62,6 @@ const handleEditPlus = (product: Product, count: number) => {
 .product {
   display: flex;
   justify-content: space-between;
-  /* width: 100%; */
   height: 130px;
   padding-left: 30px;
   padding-right: 30px;

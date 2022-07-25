@@ -3,20 +3,23 @@ import { onMounted, ref } from "vue";
 import { useCartStore } from "@/stores/cart";
 import { storeToRefs } from "pinia";
 import type { Product } from "@/types/product";
-import { getProductById } from "@/api/requests";
+import { useProductStore } from "@/stores/products";
+import Loader from "./Loader.vue";
 
 const props = defineProps<{
   id: number;
 }>();
+
+const productStore = useProductStore();
+const { isLoad } = storeToRefs(productStore);
+const { getProductById } = useProductStore();
 
 const product = ref<Product>({} as Product);
 onMounted(async () => {
   product.value = await getProductById(props.id);
 });
 
-const store = useCartStore();
 const { addProductToCart } = useCartStore();
-
 const counter = ref(1);
 
 const handleEditMinus = () => {
@@ -38,43 +41,48 @@ const addToCart = (product: Product) => {
 <template>
   <div class="details" id="details">
     <div class="details__content">
-      <div class="details__view">
-        <div class="details__head">
-          <span class="details__title">{{ product?.title }}</span>
-          <div class="details__like">
-            <img src="@/assets/icons/heart.svg" alt="like" />
-          </div>
-        </div>
-        <span class="details__price">{{ product?.price }}RWF</span>
-        <div class="details__picture">
-          <img
-            :src="product?.image"
-            :alt="product?.title"
-            width="350"
-            height="350"
-            style="object-fit: scale-down"
-          />
-        </div>
-      </div>
-      <div class="details__add">
-        <div class="details__topBlock">
+      <div class="details__loading" v-if="!isLoad">
+        <div class="details__view">
           <div class="details__head">
-            <span class="details__description">Description</span>
-            <div class="details__arrowUP">
-              <img src="@/assets/icons/arrowUp.svg" alt="aroowUP" />
+            <span class="details__title">{{ product?.title }}</span>
+            <div class="details__like">
+              <img src="@/assets/icons/heart.svg" alt="like" />
             </div>
           </div>
-          <div class="details__text">
-            {{ product?.description }}
+          <span class="details__price">{{ product?.price }}RWF</span>
+          <div class="details__picture">
+            <img
+              :src="product?.image"
+              :alt="product?.title"
+              width="350"
+              height="350"
+              style="object-fit: scale-down"
+            />
           </div>
         </div>
-        <div class="details__addToCard">
-          <button class="details__edit" @click="handleEditMinus()">-</button>
-          <span class="details__count">{{ counter }}</span>
-          <button class="details__edit" @click="handleEditPlus()">+</button>
-          <button class="details__btn" @click="product && addToCart(product)">
-            Add to cart
-          </button>
+        <div class="details__add">
+          <div class="details__topBlock">
+            <div class="details__head">
+              <span class="details__description">Description</span>
+              <div class="details__arrowUP">
+                <img src="@/assets/icons/arrowUp.svg" alt="aroowUP" />
+              </div>
+            </div>
+            <div class="details__text">
+              {{ product?.description }}
+            </div>
+          </div>
+          <div class="details__addToCard">
+            <button class="details__edit" @click="handleEditMinus()">-</button>
+            <span class="details__count">{{ counter }}</span>
+            <button class="details__edit" @click="handleEditPlus()">+</button>
+            <button class="details__btn" @click="product && addToCart(product)">
+              Add to cart
+            </button>
+            <teleport v-if="isLoad" to="details__content">
+              <Loader />
+            </teleport>
+          </div>
         </div>
       </div>
     </div>
@@ -101,6 +109,10 @@ const addToCart = (product: Product) => {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #ffffff;
+}
+
+.details__loading {
+  display: flex;
 }
 
 .details__view {
